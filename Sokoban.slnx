@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="Sokoban/Sokoban.csproj" />
+  <Folder Name="/Git_Files/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Sokoban.Logic/Sokoban.Logic.csproj" Id="a8a2e41b-2c83-47cf-88a4-66f063c9de53" />
+  <Project Path="Sokoban.UI/Sokoban.UI.csproj" Id="b9c23a8a-302a-46e2-b4d3-2ff0e4a6bb7a" />
 </Solution>
