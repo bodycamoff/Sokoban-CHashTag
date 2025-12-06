@@ -1,0 +1,30 @@
+﻿using System.Text.Json;
+
+namespace Sokoban.Logic;
+
+internal class LevelService
+{
+    public void SaveLevel(Level level, string filePath)
+    {
+        var opt = new JsonSerializerOptions { WriteIndented = true };
+        string json = JsonSerializer.Serialize(level, opt);
+        File.WriteAllText(filePath, json);
+    }
+
+    public void LoadLevel(string filePath)
+    {
+        var json = File.ReadAllText(filePath);
+        var level = JsonSerializer.Deserialize<Level>(json);
+    }
+
+    public void UpdateLevel(string oldFileName, string newFileName)
+    {
+        
+    }
+
+    public IEnumerable<string> GetLevelFiles(string foledPath)
+    {
+        if (!Directory.Exists(foledPath)) Directory.CreateDirectory(foledPath);
+        return Directory.GetFiles(foledPath, "*.json");
+    }
+}

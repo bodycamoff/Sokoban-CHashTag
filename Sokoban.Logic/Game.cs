@@ -1,6 +1,66 @@
-﻿namespace Sokoban.Logic;
+﻿using System.Threading.Tasks.Dataflow;
+using static Sokoban.Logic.Enums;
+
+namespace Sokoban.Logic;
 
 public class Game
 {
+    public CellType[,] Map {  get; set; }
+
+    public int Width => Map.GetLength(1);
+    public int Height=> Map.GetLength(0);
+    
+    public Player Player { get; private set; }
+
+    public List<Box> Boxes { get; private set; }
+
+    public int Steps { get; private set; }
+
+    public Game(int[,] levelMap, int mapSize)
+    {
+        Map = new CellType[mapSize, mapSize];
+        Boxes = new List<Box>();
+        for (var y = 0; y < mapSize; y++)
+        for (var x = 0; x < mapSize; x++)
+            {
+                Map[y, x] = ParseSymbol(levelMap[y, x]);
+            }
+    }
+
+    public CellType ParseSymbol(int c) => (CellType)c;
+
+    public void Move(Direction direction)
+    {
+        var dx = 0;
+        var dy = 0;
+        switch(direction)
+        {
+            case Direction.Up: dy = - 1; break;
+            case Direction.Down: dy = 1; break;
+            case Direction.Left: dx = -1; break;
+            case Direction.Right: dx = 1; break;
+        }
+        var newX = Player.X + dx;
+        var newY = Player.Y + dy;
+
+        if (Map[newY, newX] == CellType.Wall) return;
+
+        var box = Boxes.FirstOrDefault(b => b.X == newX && b.Y == newY);
+
+        if (box != null)
+        {
+            int boxNewX = box.X + dx;
+            int boxNewY = box.Y + dy;
+            if (!IsValidPosition(boxNewX, boxNewY)) return;
+            if (Map[boxNewY, boxNewX] == CellType.Wall) return;
+            if (Boxes.Any(b => b.X == boxNewX && b.Y == boxNewY)) return;
+            box.X = boxNewX; box.Y = boxNewY;
+        }
+        Player.X = newX; Player.Y = newY;
+        Steps++;
+    }
+
+    private bool IsValidPosition(int x, int y) => x >= 0 && x < Width && y >= 0 && y < Height;
+
 
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sokoban.Logic;
 
-public class Player : GameObject
+public class Box : GameObject
 {
-    public Player(int x, int y) : base(x, y) { }    
+    public Box(int x, int y) : base(x, y) { }
+    public Box() : base(0,0) { }
 }
