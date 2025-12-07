@@ -63,6 +63,7 @@ public class Game
         }
         Player.X = newX; Player.Y = newY;
         Steps++;
+        CheckWin();
     }
 
     private bool IsValidPosition(int x, int y) => x >= 0 && x < Width && y >= 0 && y < Height;

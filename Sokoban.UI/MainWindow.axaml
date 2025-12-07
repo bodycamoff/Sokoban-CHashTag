@@ -2,8 +2,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Sokoban.UI.MainWindow"
-        Title="Sokoban.UI">
-    Sokoban start page!
+        Title="Sokoban Startuper Edition"
+        Width="400" Height="400"
+        KeyDown="OnKeyDown">
+
+    <Grid RowDefinitions="Auto, *">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" Spacing="20">
+            <TextBlock Name="StepsText" Text="Steps: 0" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Name="StatusText" Text="Playing..." FontSize="20" Foreground="Gray"/>
+        </StackPanel>
+
+        <Viewbox Grid.Row="1" Stretch="Uniform">
+            <UniformGrid Name="GameGrid" Background="Black"/>
+        </Viewbox>
+    </Grid>
 </Window>

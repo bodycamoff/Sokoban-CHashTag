@@ -1,12 +1,128 @@
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Sokoban.Logic;
 
-namespace Sokoban.UI
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using static Sokoban.Logic.Enums;
+namespace Sokoban.UI;
+
+public static class ImageLoader
 {
-    public partial class MainWindow : Window
+    private static Dictionary<string, Bitmap> cache = new Dictionary<string, Bitmap>();
+
+    public static Bitmap Load(string name)
     {
-        public MainWindow()
+        if (cache.ContainsKey(name)) return cache[name];
+        var uri = new Uri($"avares://Sokoban.UI/Assets/{name}");
+        var bitmap = new Bitmap(AssetLoader.Open(uri));
+        cache[name] = bitmap;
+        return bitmap;
+    }
+}
+
+public partial class MainWindow : Window
+{
+    private Game game;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        StartNewGame();
+    }
+
+    private void StartNewGame()
+    {
+        var mapLayout = new int[]
         {
-            InitializeComponent();
+            1, 1, 1, 1, 1,
+            1, 0, 0, 2, 1,
+            1, 0, 0, 0, 1,
+            1, 0, 0, 0, 1,
+            1, 1, 1, 1, 1
+        };
+
+        var level = new Level()
+        {
+            Width = 5,
+            Heigth = 5,
+            MapLayout = mapLayout,
+            PlayerStartX = 1,
+            PlayerStartY = 1,
+            InitialBoxes = new List<Box> { new Box(2, 2) }
+        };
+        game = new Game(level);
+
+        GameGrid.Rows = game.Height;
+        GameGrid.Columns = game.Width;
+
+        Draw();
+    }
+
+    private void Draw()
+    {
+        GameGrid.Children.Clear();
+
+        if (StepsText != null)
+            StepsText.Text = $"Steps: {game.Steps}";
+
+        for (var y = 0;  y < game.Height; y++)
+        for (var x = 0; x < game.Width; x++)
+            {
+                var img = new Image();
+                img.Stretch = Stretch.Uniform;
+
+                var cellType = game.Map[y, x];
+                var spriteName = "floor.png";
+
+                if (cellType == CellType.Wall) spriteName = "wall.png";
+                else if (cellType == CellType.Target) spriteName = "target.png";
+                
+                var box = game.Boxes.FirstOrDefault(b => b.X == x && b.Y == y);
+                if (box != null)
+                {
+                    if (cellType == CellType.Target)
+                        spriteName = "box_on_target.png";
+                    else
+                        spriteName = "box.png";
+                }
+
+                if (game.Player.X == x && game.Player.Y == y)
+                    spriteName = "player.png";
+
+                try
+                {
+                    img.Source = ImageLoader.Load(spriteName);
+                }
+                catch { }
+
+                GameGrid.Children.Add(img);   
+            }
+        if (game.IsCompleted && StatusText != null)
+        {
+            StatusText.Text = "U WON";
+            StatusText.Foreground = Brushes.Green;
         }
+        //throw new NotImplementedException();
+    }
+    private void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (game == null) return;
+        if (game.IsCompleted) return;
+
+        switch (e.Key)
+        {
+            case Key.Up: case Key.W: game.Move(Direction.Up); break;
+            case Key.Down: case Key.S: game.Move(Direction.Down); break;
+            case Key.Left: case Key.A: game.Move(Direction.Left); break;
+            case Key.Right: case Key.D: game.Move(Direction.Right); break;
+            case Key.R: StartNewGame(); break;
+        }
+        Draw();
     }
 }

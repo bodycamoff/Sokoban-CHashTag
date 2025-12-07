@@ -18,7 +18,7 @@
     <AvaloniaResource Include="Assets\box.png" />
     <AvaloniaResource Include="Assets\box_on_target.png" />
     <AvaloniaResource Include="Assets\floor.png" />
-    <AvaloniaResource Include="Assets\Player.png" />
+    <AvaloniaResource Include="Assets\player.png" />
     <AvaloniaResource Include="Assets\target.png" />
     <AvaloniaResource Include="Assets\wall.png" />
   </ItemGroup>
@@ -37,5 +37,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sokoban.Logic\Sokoban.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sokoban.Logic">
+      <HintPath>..\Sokoban.Logic\bin\Debug\net8.0\Sokoban.Logic.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
