@@ -6,6 +6,22 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\box.png" />
+    <None Remove="Assets\box_on_target.png" />
+    <None Remove="Assets\floor.png" />
+    <None Remove="Assets\Player.png" />
+    <None Remove="Assets\target.png" />
+    <None Remove="Assets\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\box.png" />
+    <AvaloniaResource Include="Assets\box_on_target.png" />
+    <AvaloniaResource Include="Assets\floor.png" />
+    <AvaloniaResource Include="Assets\Player.png" />
+    <AvaloniaResource Include="Assets\target.png" />
+    <AvaloniaResource Include="Assets\wall.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.3.9" />

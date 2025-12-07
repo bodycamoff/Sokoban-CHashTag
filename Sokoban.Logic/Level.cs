@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sokoban.Logic;
 
-internal class Level
+public class Level
 {
     public string Name { get; set; } = "New Level";
 

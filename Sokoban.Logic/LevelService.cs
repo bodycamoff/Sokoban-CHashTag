@@ -11,15 +11,16 @@ internal class LevelService
         File.WriteAllText(filePath, json);
     }
 
-    public void LoadLevel(string filePath)
+    public Level LoadLevel(string filePath)
     {
         var json = File.ReadAllText(filePath);
         var level = JsonSerializer.Deserialize<Level>(json);
+        return level;
     }
 
     public void UpdateLevel(string oldFileName, string newFileName)
     {
-        
+        throw new NotImplementedException();
     }
 
     public IEnumerable<string> GetLevelFiles(string foledPath)
