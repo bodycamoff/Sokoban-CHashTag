@@ -2,7 +2,7 @@
 
 namespace Sokoban.Logic;
 
-internal class LevelService
+public class LevelService
 {
     public void SaveLevel(Level level, string filePath)
     {

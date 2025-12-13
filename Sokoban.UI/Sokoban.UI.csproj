@@ -44,4 +44,10 @@
       <HintPath>..\Sokoban.Logic\bin\Debug\net8.0\Sokoban.Logic.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MenuView.axaml.cs">
+      <DependentUpon>MenuView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Sokoban.UI.EditorView">
+  <Grid ColumnDefinitions="200, *"> 
+    
+    <StackPanel Grid.Column="0" Background="LightGray" Spacing="10" Margin="5">
+        <TextBlock Text="Tools" FontWeight="Bold" Margin="0,10,0,5"/>
+        
+        <RadioButton Name="RbWall" Content="Wall (Стена)" IsChecked="True"/>
+        <RadioButton Name="RbFloor" Content="Floor (Пол)"/>
+        <RadioButton Name="RbBox" Content="Box (Ящик)"/>
+        <RadioButton Name="RbTarget" Content="Target (Цель)"/>
+        <RadioButton Name="RbPlayer" Content="Player (Игрок)"/>
+
+        <Separator Height="20"/>
+
+        <TextBlock Text="Level Name:" Margin="0,10,0,0"/>
+        <TextBox Name="TbLevelName" Text="level_01"/>
+
+        <Button Name="BtnSave" Content="SAVE LEVEL" HorizontalAlignment="Stretch" Background="LightGreen"/>
+        <Button Name="BtnBack" Content="Back to Menu" HorizontalAlignment="Stretch"/>
+    </StackPanel>
+
+    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="10">
+        <Viewbox Stretch="Uniform">
+            <UniformGrid Name="EditorGrid" Background="White" PointerPressed="OnGridClicked"/>
+        </Viewbox>
+    </Border>
+
+</Grid>
+</UserControl>
