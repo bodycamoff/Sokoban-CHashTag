@@ -22,11 +22,22 @@ public partial class MainWindow : Window
 
         menuView = new MenuView();
 
-        menuView.BtnPlay.Click += (s, e) => StartGame();
+        menuView.BtnPlay.Click += (s, e) => OpenLevelSelect();
         menuView.BtnEditor.Click += (s, e) => OpenEditor();
         menuView.BtnExit.Click += (s, e) => Close();
 
         MainContent.Content = menuView;
+    }
+
+    private void OpenLevelSelect()
+    {
+        var selectView = new LevelSelectView();
+
+        selectView.BackButton.Click += (s, e) => MainContent.Content = menuView;
+
+        selectView.OnLevelSelectd += (filePath) => StartGame(filePath);
+
+        MainContent.Content = selectView;
     }
 
     private void OpenEditor()
@@ -38,10 +49,16 @@ public partial class MainWindow : Window
         MainContent.Content = editorView;
     }
 
-    private void StartGame()
+    private void StartGame(string filePath)
     {
-        gameView = new GameView();
+        var service = new LevelService();
+        var loadLevel = service.LoadLevel(filePath);
+        
+        if (loadLevel == null) return;
+
+        gameView = new GameView(loadLevel);
         MainContent.Content = gameView;
+        this.Focus();
     }
 
     private void OnKeyDown(object? sender, KeyEventArgs e)

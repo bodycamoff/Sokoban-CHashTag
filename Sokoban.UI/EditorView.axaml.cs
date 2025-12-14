@@ -57,7 +57,7 @@ public partial class EditorView : UserControl
             InitialBoxes = boxes.Select(b => new Box(b.X, b.Y)).ToList()
         };
 
-        var folderPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Level");
+        var folderPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Levels");
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
@@ -67,16 +67,14 @@ public partial class EditorView : UserControl
         var service = new LevelService();
         service.SaveLevel(levelToSave, fullPath);
 
-        BtnSave.Content = $"Succesfully Saved to {fullPath}!";
-
-
+        BtnSave.Content = $"Сохранено в {fullPath}!";
     }
 
     private void InitializeNewMap()
     {
         map = new CellType[height, width];
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++)
+        for (var y = 0; y < height; y++)
+            for (var x = 0; x < width; x++)
                 map[y, x] = CellType.Empty; 
 
         player.X = 0; player.Y = 0;
@@ -137,9 +135,9 @@ public partial class EditorView : UserControl
         EditorGrid.Rows = height;
         EditorGrid.Columns = width;
 
-        for (int y = 0; y < height; y++)
+        for (var y = 0; y < height; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (var x = 0; x < width; x++)
             {
                 Image img = new Image();
                 img.Stretch = Stretch.Uniform;

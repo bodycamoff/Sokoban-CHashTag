@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Sokoban.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Sokoban.Logic.Enums;
@@ -12,35 +13,21 @@ namespace Sokoban.UI;
 
 public partial class GameView : UserControl
 {
-    public GameView()
+    private Game game;
+    private Level currentLevel;
+    public GameView(Level levelToLoad)
     {
         InitializeComponent();
 
+        game = new Game(levelToLoad);
+        currentLevel = levelToLoad;
+
         StartNewGame();
     }
-    private Game game;
 
     private void StartNewGame()
     {
-        var mapLayout = new int[]
-        {
-            1, 1, 1, 1, 1,
-            1, 0, 0, 2, 1,
-            1, 0, 0, 0, 1,
-            1, 0, 0, 0, 1,
-            1, 1, 1, 1, 1
-        };
-
-        var level = new Level()
-        {
-            Width = 5,
-            Heigth = 5,
-            MapLayout = mapLayout,
-            PlayerStartX = 1,
-            PlayerStartY = 1,
-            InitialBoxes = new List<Box> { new Box(2, 2) }
-        };
-        game = new Game(level);
+        game = new Game(currentLevel);
 
         GameGrid.Rows = game.Height;
         GameGrid.Columns = game.Width;
