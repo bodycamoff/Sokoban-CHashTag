@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="Sokoban.UI.EditorView">
+
+    <Grid ColumnDefinitions="250, *">
+
+        <Border Grid.Column="0" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="0,0,1,0">
+            <StackPanel Margin="15" Spacing="15">
+                
+                <TextBlock Text="Level editor" 
+                           Foreground="White" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <Border Background="#3E3E42" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="TOOLS" Foreground="#AAAAAA" FontSize="12" FontWeight="Bold"/>
+                        
+                        
+                        <RadioButton Name="RbWall" IsChecked="True" GroupName="Tools">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Border Width="16" Height="16" Background="Gray" CornerRadius="2"/>
+                                <TextBlock Text="Wall" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Name="RbFloor" GroupName="Tools">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Border Width="16" Height="16" Background="White" CornerRadius="2"/>
+                                <TextBlock Text="Floor" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Name="RbBox" GroupName="Tools">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Border Width="16" Height="16" Background="Orange" CornerRadius="2"/>
+                                <TextBlock Text="Box" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Name="RbTarget" GroupName="Tools">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Border Width="16" Height="16" Background="Red" CornerRadius="8"/>
+                                <TextBlock Text="Target" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton Name="RbPlayer" GroupName="Tools">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Border Width="16" Height="16" Background="CornflowerBlue" CornerRadius="8"/>
+                                <TextBlock Text="Player" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#3E3E42" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="SETTINGS" Foreground="#AAAAAA" FontSize="12" FontWeight="Bold"/>
+                        
+                        <StackPanel>
+                            <TextBlock Text="Level name:" Foreground="White" Margin="0,0,0,5"/>
+                            <TextBox Name="TbLevelName" Text="level_01" Background="#252526" Foreground="White" BorderBrush="Gray"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Separator Background="Gray" Height="1" Margin="0,10"/>
+
+                <Button Name="BtnSave" 
+                        Content="Save" 
+                        Background="#28a745" 
+                        Foreground="White" 
+                        FontWeight="Bold"
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"
+                        CornerRadius="5"
+                        Padding="10"/>
+
+                <Button Name="BtnBack" 
+                        Content="Menu" 
+                        Background="#dc3545" 
+                        Foreground="White"
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"
+                        CornerRadius="5"
+                        Padding="10"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Background="#1E1E1E">
+            <Viewbox Stretch="Uniform" Margin="20">
+                <Border BoxShadow="0 0 20 0 Black">
+                    <UniformGrid Name="EditorGrid" Background="Black"/>
+                </Border>
+            </Viewbox>
+        </Border>
+
+    </Grid>
+</UserControl>

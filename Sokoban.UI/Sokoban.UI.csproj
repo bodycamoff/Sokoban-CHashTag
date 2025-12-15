@@ -6,6 +6,22 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\box.png" />
+    <None Remove="Assets\box_on_target.png" />
+    <None Remove="Assets\floor.png" />
+    <None Remove="Assets\Player.png" />
+    <None Remove="Assets\target.png" />
+    <None Remove="Assets\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\box.png" />
+    <AvaloniaResource Include="Assets\box_on_target.png" />
+    <AvaloniaResource Include="Assets\floor.png" />
+    <AvaloniaResource Include="Assets\player.png" />
+    <AvaloniaResource Include="Assets\target.png" />
+    <AvaloniaResource Include="Assets\wall.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.3.9" />
@@ -21,5 +37,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sokoban.Logic\Sokoban.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sokoban.Logic">
+      <HintPath>..\Sokoban.Logic\bin\Debug\net8.0\Sokoban.Logic.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MenuView.axaml.cs">
+      <DependentUpon>MenuView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
