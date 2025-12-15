@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="Sokoban.UI.GameView">
+
+    <Border Background="#1E1E1E">
+        <Grid RowDefinitions="Auto, *">
+            
+            <Border Grid.Row="0" Background="#2D2D30" Padding="15" BorderBrush="#3E3E42" BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
+                    
+                    <Border Background="#3E3E42" CornerRadius="5" Padding="10,5">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock Name="StepsText" Text="Steps: 0" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#3E3E42" CornerRadius="5" Padding="10,5">
+                        <TextBlock Name="StatusText" Text="Playing..." FontSize="20" FontWeight="Bold" Foreground="#AAAAAA"/>
+                    </Border>
+                    
+                    <TextBlock Text="[R] - Restart   [ESC] - Menu" 
+                               VerticalAlignment="Center" 
+                               Foreground="Gray" 
+                               FontSize="12" 
+                               Margin="20,0,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Viewbox Grid.Row="1" Stretch="Uniform" Margin="20">
+                <Border BoxShadow="0 0 50 0 Black">
+                    <UniformGrid Name="GameGrid" Background="Black"/>
+                </Border>
+            </Viewbox>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sokoban.Logic;
+﻿namespace Sokoban.Logic;
 
 public class Level
 {
@@ -17,8 +11,7 @@ public class Level
 
     public int PlayerStartX { get; set; }
     public int PlayerStartY { get; set; }
-
-    public List<Box> InitialBoxes { get; } = new();
+    public List<Box> InitialBoxes { get; set; } = new();
 
     public bool IsCompleted { get; set; }
     public int BestSteps { get; set; } = 0;

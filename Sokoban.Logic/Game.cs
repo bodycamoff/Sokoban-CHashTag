@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks.Dataflow;
-using static Sokoban.Logic.Enums;
+﻿using static Sokoban.Logic.Enums;
 
 namespace Sokoban.Logic;
 
@@ -18,17 +17,17 @@ public class Game
         Map = new CellType[lvl.Heigth, lvl.Width];
         for (int y = 0; y < lvl.Heigth; y++)
         for (int x = 0; x < lvl.Width; x++)
-            {
-                var typeIndex = lvl.MapLayout[y * lvl.Width + x];
-                Map[y, x] = (CellType)typeIndex;
-            }
+        {
+            var typeIndex = lvl.MapLayout[y * lvl.Width + x];
+            Map[y, x] = (CellType)typeIndex;
+        }
 
         Player = new Player(lvl.PlayerStartX, lvl.PlayerStartY);
         Boxes = new List<Box>();
+
         foreach (var box in lvl.InitialBoxes)
-        {
             Boxes.Add(new Box(box.X, box.Y));
-        }
+
         Steps = 0;
     }
 
@@ -61,8 +60,10 @@ public class Game
             if (Boxes.Any(b => b.X == boxNewX && b.Y == boxNewY)) return;
             box.X = boxNewX; box.Y = boxNewY;
         }
+
         Player.X = newX; Player.Y = newY;
         Steps++;
+        CheckWin();
     }
 
     private bool IsValidPosition(int x, int y) => x >= 0 && x < Width && y >= 0 && y < Height;
@@ -71,13 +72,14 @@ public class Game
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
+        {
+            if (Map[y, x] == CellType.Target)
             {
-                if (Map[y, x] == CellType.Target)
-                {
-                    var hasBoxes = Boxes.Any(b => b.X == x && b.Y == y);
-                    if (!hasBoxes) return;
-                }
+                var hasBoxes = Boxes.Any(b => b.X == x && b.Y == y);
+                if (!hasBoxes) return;
             }
+        }
+
         IsCompleted = true;
     }
 }

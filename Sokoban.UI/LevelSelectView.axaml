@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             x:Class="Sokoban.UI.LevelSelectView">
+
+    <Border Background="#1E1E1E"> 
+        <Grid RowDefinitions="Auto, *, Auto" Margin="20" MaxWidth="400">
+            
+            <TextBlock Grid.Row="0" 
+                       Text="SELECT LEVEL" 
+                       FontSize="32" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,20"/>
+
+            <Border Grid.Row="1" 
+                    Background="#2D2D30" 
+                    CornerRadius="5" 
+                    Padding="10"
+                    BorderBrush="#3E3E42" 
+                    BorderThickness="1">
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Name="LevelsContainer" Spacing="8"/>
+                </ScrollViewer>
+            </Border>
+
+            <StackPanel Grid.Row="2" Margin="0,20,0,0">
+                <Button Name="BtnBack" 
+                        Content="Back to Menu" 
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"
+                        Background="#dc3545" 
+                        Foreground="White"
+                        FontSize="16"
+                        Padding="10"
+                        CornerRadius="5"/>
+            </StackPanel>
+            
+        </Grid>
+    </Border>
+</UserControl>
