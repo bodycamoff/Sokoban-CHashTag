@@ -7,7 +7,7 @@ public class LevelService
     public void SaveLevel(Level level, string filePath)
     {
         var opt = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(level, opt);
+        var json = JsonSerializer.Serialize(level, opt);
         File.WriteAllText(filePath, json);
     }
 
@@ -20,6 +20,7 @@ public class LevelService
 
     public void UpdateLevel(string oldFileName, string newFileName)
     {
+        // TODO реализовать возможность изменять готовые уровни... потом 💀💀💀
         throw new NotImplementedException();
     }
 

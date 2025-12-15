@@ -1,11 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Sokoban.Logic;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using static Sokoban.Logic.Enums;
 
@@ -43,37 +39,49 @@ public partial class GameView : UserControl
             StepsText.Text = $"Steps: {game.Steps}";
 
         for (var y = 0; y < game.Height; y++)
-            for (var x = 0; x < game.Width; x++)
+        for (var x = 0; x < game.Width; x++)
+        {
+            var cellContainer = new Panel();
+
+            var cellType = game.Map[y, x];
+            var bgSprite = "floor.png"; 
+
+            if (cellType == CellType.Wall) bgSprite = "wall.png";
+            else if (cellType == CellType.Target) bgSprite = "target.png";
+
+            var bgImg = new Image
+            { 
+                Stretch = Stretch.Uniform,
+                Source = ImageLoader.Load(bgSprite)
+            };
+
+            cellContainer.Children.Add(bgImg);
+
+            string objectSprite = null;
+
+            var box = game.Boxes.FirstOrDefault(b => b.X == x && b.Y == y);
+            if (box != null)
             {
-                var img = new Image();
-                img.Stretch = Stretch.Uniform;
-
-                var cellType = game.Map[y, x];
-                var spriteName = "floor.png";
-
-                if (cellType == CellType.Wall) spriteName = "wall.png";
-                else if (cellType == CellType.Target) spriteName = "target.png";
-
-                var box = game.Boxes.FirstOrDefault(b => b.X == x && b.Y == y);
-                if (box != null)
-                {
-                    if (cellType == CellType.Target)
-                        spriteName = "box_on_target.png";
-                    else
-                        spriteName = "box.png";
-                }
-
-                if (game.Player.X == x && game.Player.Y == y)
-                    spriteName = "player.png";
-
-                try
-                {
-                    img.Source = ImageLoader.Load(spriteName);
-                }
-                catch { }
-
-                GameGrid.Children.Add(img);
+                if (cellType == CellType.Target) objectSprite = "box_on_target.png";
+                else objectSprite = "box.png";
             }
+
+            if (game.Player.X == x && game.Player.Y == y)
+                objectSprite = "player.png";
+                
+            if (objectSprite != null)
+            {
+                Image objImg = new Image
+                { 
+                    Stretch = Stretch.Uniform,
+                    Source = ImageLoader.Load(objectSprite)
+                };
+
+                cellContainer.Children.Add(objImg);
+            }
+
+            GameGrid.Children.Add(cellContainer);
+        }
 
         if (game.IsCompleted && StatusText != null)
         {
@@ -85,6 +93,7 @@ public partial class GameView : UserControl
     public void HandleInput(Key key)
     {
         if (game == null) return;
+
         if (key == Key.R)
         {
             StartNewGame();

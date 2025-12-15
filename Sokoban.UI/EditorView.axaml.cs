@@ -1,11 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Sokoban.Logic;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,15 +70,10 @@ public partial class EditorView : UserControl
     {
         map = new CellType[height, width];
         for (var y = 0; y < height; y++)
-            for (var x = 0; x < width; x++)
-                map[y, x] = CellType.Empty; 
+        for (var x = 0; x < width; x++)
+            map[y, x] = CellType.Empty; 
 
         player.X = 0; player.Y = 0;
-    }
-
-    private void OnGridClicked(object sender, PointerPressedEventArgs e)
-    {
-
     }
 
     private void OnCellClicked(int x, int y)
@@ -106,7 +97,6 @@ public partial class EditorView : UserControl
         {
             
             if (map[y, x] == CellType.Wall) map[y, x] = CellType.Empty;
-
             
             if (!boxes.Any(b => b.X == x && b.Y == y))
                 boxes.Add(new Box(x, y));
@@ -124,10 +114,9 @@ public partial class EditorView : UserControl
         Draw(); 
     }
 
-    private void RemoveObjectsAt(int x, int y)
-    {
-        boxes.RemoveAll(b => b.X == x && b.Y == y);
-    }
+    private void OnGridClicked(object sender, PointerPressedEventArgs e) { }
+
+    private void RemoveObjectsAt(int x, int y) => boxes.RemoveAll(b => b.X == x && b.Y == y);
 
     private void Draw()
     {
@@ -136,41 +125,51 @@ public partial class EditorView : UserControl
         EditorGrid.Columns = width;
 
         for (var y = 0; y < height; y++)
+        for (var x = 0; x < width; x++)
         {
-            for (var x = 0; x < width; x++)
+            var cellContainer = new Panel();
+
+            var cellType = map[y, x];
+            var bgSprite = "floor.png";
+
+            if (cellType == CellType.Wall) bgSprite = "wall.png";
+            else if (cellType == CellType.Target) bgSprite = "target.png";
+
+            var bgImg = new Image
             {
-                Image img = new Image();
-                img.Stretch = Stretch.Uniform;
+                Stretch = Stretch.Uniform,
+                Source = ImageLoader.Load(bgSprite)
+            };
+            cellContainer.Children.Add(bgImg);
 
-                var cellType = map[y, x];
-                var spriteName = "floor.png";
+            string objectSprite = null;
 
-                if (cellType == CellType.Wall) spriteName = "wall.png";
-                else if (cellType == CellType.Target) spriteName = "target.png";
-
-                var box = boxes.FirstOrDefault(b => b.X == x && b.Y == y);
-                if (box != null)
-                {
-                    if (cellType == CellType.Target)
-                        spriteName = "box_on_target.png";
-                    else
-                        spriteName = "box.png";
-                }
-
-                if (player.X == x && player.Y == y)
-                    spriteName = "player.png"; 
-
-                try
-                {
-                    img.Source = ImageLoader.Load(spriteName);
-                }
-                catch { }
-                var capturedX = x; 
-                var capturedY = y;
-                img.PointerPressed += (s, e) => OnCellClicked(capturedX, capturedY);
-
-                EditorGrid.Children.Add(img);
+            var box = boxes.FirstOrDefault(b => b.X == x && b.Y == y);
+            if (box != null)
+            {
+                if (cellType == CellType.Target) objectSprite = "box_on_target.png";
+                else objectSprite = "box.png";
             }
+
+            if (player.X == x && player.Y == y)
+                objectSprite = "player.png";
+            
+            if (objectSprite != null)
+            {
+                Image objImg = new Image
+                {
+                    Stretch = Stretch.Uniform,
+                    Source = ImageLoader.Load(objectSprite)
+                };
+                cellContainer.Children.Add(objImg);
+            }
+
+            var capturedX = x;
+            var capturedY = y;
+
+            cellContainer.PointerPressed += (s, e) => OnCellClicked(capturedX, capturedY);
+
+            EditorGrid.Children.Add(cellContainer);
         }
     }
 }

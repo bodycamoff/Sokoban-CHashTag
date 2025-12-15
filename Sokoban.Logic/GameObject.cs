@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sokoban.Logic;
+﻿namespace Sokoban.Logic;
 
 public abstract class GameObject
 {
@@ -16,5 +10,6 @@ public abstract class GameObject
         X = x;
         Y = y;
     }
+
     public GameObject() { }
 }

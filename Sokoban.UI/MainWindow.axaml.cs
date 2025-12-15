@@ -1,14 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using Sokoban.Logic;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using static Sokoban.Logic.Enums;
 namespace Sokoban.UI;
 
 public partial class MainWindow : Window
@@ -63,9 +56,14 @@ public partial class MainWindow : Window
 
     private void OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (MainContent.Content == gameView)
-        {
-            gameView.HandleInput(e.Key);
-        }
+        if (e.Key == Key.Escape)
+            if (MainContent.Content != menuView)
+            {
+                MainContent.Content = menuView;
+                return;
+            }
+
+        if (MainContent.Content == gameView)        
+            gameView.HandleInput(e.Key); 
     }
 }

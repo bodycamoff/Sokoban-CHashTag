@@ -1,10 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Sokoban.Logic;
+using Avalonia.Media;
 using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Sokoban.UI;
 
@@ -42,6 +39,8 @@ public partial class LevelSelectView : UserControl
             var btn = new Button
             {
                 Content = fileName,
+                Foreground = Brushes.White,           
+                Background = Brush.Parse("#2D2D30"),  
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 Height = 40,
@@ -53,5 +52,4 @@ public partial class LevelSelectView : UserControl
             LevelsContainer.Children.Add(btn);
         }
     }
-
 }
