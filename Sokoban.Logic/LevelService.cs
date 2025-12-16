@@ -2,6 +2,10 @@
 
 namespace Sokoban.Logic;
 
+/// <summary>
+/// Сервис для работы с файловой системой
+/// Отвечает за сериализацию уровней в JSON и наоборот
+/// </summary>
 public class LevelService
 {
     public void SaveLevel(Level level, string filePath)

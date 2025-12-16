@@ -2,11 +2,14 @@
 
 namespace Sokoban.Logic;
 
+/// <summary>
+/// Главный класс, управляющий игровой логикой и состоянием
+/// </summary>
 public class Game
 {
     public CellType[,] Map {  get; set; }
     public int Width => Map.GetLength(1);
-    public int Height=> Map.GetLength(0);
+    public int Height => Map.GetLength(0);
     public Player Player { get; private set; }
     public List<Box> Boxes { get; private set; }
     public int Steps { get; private set; }
@@ -15,8 +18,8 @@ public class Game
     public Game(Level lvl)
     {
         Map = new CellType[lvl.Heigth, lvl.Width];
-        for (int y = 0; y < lvl.Heigth; y++)
-        for (int x = 0; x < lvl.Width; x++)
+        for (var y = 0; y < lvl.Heigth; y++)
+        for (var x = 0; x < lvl.Width; x++)
         {
             var typeIndex = lvl.MapLayout[y * lvl.Width + x];
             Map[y, x] = (CellType)typeIndex;
@@ -33,6 +36,11 @@ public class Game
 
     public CellType ParseSymbol(int c) => (CellType)c;
 
+    /// <summary>
+    /// Обрабатывает ход игрока в указанном направнии
+    /// Проверяет столкновение со стенами и ящиками
+    /// </summary>
+    /// <param name="direction"> Направление движения Up/Down/Left/Rigth</param>
     public void Move(Direction direction)
     {
         var dx = 0;
@@ -46,6 +54,8 @@ public class Game
         }
         var newX = Player.X + dx;
         var newY = Player.Y + dy;
+
+        if (!IsValidPosition(newX, newY)) return;
 
         if (Map[newY, newX] == CellType.Wall) return;
 
@@ -63,11 +73,15 @@ public class Game
 
         Player.X = newX; Player.Y = newY;
         Steps++;
+
         CheckWin();
     }
 
     private bool IsValidPosition(int x, int y) => x >= 0 && x < Width && y >= 0 && y < Height;
 
+    /// <summary>
+    /// Проверяет все ли условия для победы выполнены (все ящики стоят на таргетах)
+    /// </summary>
     public void CheckWin()
     {
         for (var y = 0; y < Height; y++)

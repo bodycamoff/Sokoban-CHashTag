@@ -31,6 +31,10 @@ public partial class GameView : UserControl
         Draw();
     }
 
+    /// <summary>
+    /// Перерисовывает игровое поле
+    /// Очищает сетку и заново создает визуальные элементы на основе состояния игры
+    /// </summary>
     private void Draw()
     {
         GameGrid.Children.Clear();
@@ -41,6 +45,7 @@ public partial class GameView : UserControl
         for (var y = 0; y < game.Height; y++)
         for (var x = 0; x < game.Width; x++)
         {
+            // Для наслоения моделек (типа игрок стоит на полу)
             var cellContainer = new Panel();
 
             var cellType = game.Map[y, x];
@@ -90,6 +95,11 @@ public partial class GameView : UserControl
         }
     }
 
+    /// <summary>
+    /// Обработчик нажатия клавиш
+    /// Вызывается из MainWindow
+    /// </summary>
+    /// <param name="key"></param>
     public void HandleInput(Key key)
     {
         if (game == null) return;
@@ -99,6 +109,7 @@ public partial class GameView : UserControl
             StartNewGame();
             return;
         }
+
         if (game.IsCompleted) return;
 
         switch (key)
@@ -109,6 +120,7 @@ public partial class GameView : UserControl
             case Key.Right: case Key.D: game.Move(Direction.Right); break;
             case Key.R: StartNewGame(); break;
         }
+
         Draw();
     }
 }

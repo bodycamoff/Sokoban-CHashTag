@@ -1,5 +1,9 @@
 ﻿namespace Sokoban.Logic;
 
+/// <summary>
+/// Абстрактный класс для всех игровых объектов, имеющих координаты на карте
+/// Реализует общий функционал хранения позиции
+/// </summary>
 public abstract class GameObject
 {
     public int X { get; set; }
@@ -10,6 +14,8 @@ public abstract class GameObject
         X = x;
         Y = y;
     }
-
+    /// <summary>
+    /// Пустой конструктор нужен для сериализации из JSON
+    /// </summary>
     public GameObject() { }
 }

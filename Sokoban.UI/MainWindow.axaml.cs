@@ -4,6 +4,10 @@ using Sokoban.Logic;
 
 namespace Sokoban.UI;
 
+/// <summary>
+/// Главное окно приложения
+/// Меняет содержимое (content) между меню, игрой и редактором увроня
+/// </summary>
 public partial class MainWindow : Window
 {
     private MenuView menuView;
@@ -22,12 +26,17 @@ public partial class MainWindow : Window
         MainContent.Content = menuView;
     }
 
+    /// <summary>
+    /// Переключает на экран выбора уровня
+    /// Подписывается на событие выбора файла чтобы запустить игру
+    /// </summary>
     private void OpenLevelSelect()
     {
         var selectView = new LevelSelectView();
 
         selectView.BackButton.Click += (s, e) => MainContent.Content = menuView;
 
+        // вызовется когда selectView сработает делегат OnLevelSelectd
         selectView.OnLevelSelectd += (filePath) => StartGame(filePath);
 
         MainContent.Content = selectView;
@@ -54,6 +63,12 @@ public partial class MainWindow : Window
         this.Focus();
     }
 
+    /// <summary>
+    /// Перехватывает нажатие клавиш
+    /// Благодаря методу, например Escape работает всегда а стрелки только во время игры на уровне
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnKeyDown(object? sender, KeyEventArgs e)
     {
         if (e.Key == Key.Escape)

@@ -1,5 +1,8 @@
 ﻿namespace Sokoban.Logic;
 
+/// <summary>
+/// Класс контейнер для хранения состояния уровня (DTO)
+/// </summary>
 public class Level
 {
     public string Name { get; set; } = "New Level";
