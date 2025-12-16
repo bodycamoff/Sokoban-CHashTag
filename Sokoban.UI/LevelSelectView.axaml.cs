@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Media;
+using Sokoban.Logic;
 using System;
 using System.IO;
 
@@ -35,15 +36,24 @@ public partial class LevelSelectView : UserControl
         foreach (var file in files)
         {
             var fileName = Path.GetFileNameWithoutExtension(file);
+            var levelData = new LevelService().LoadLevel(file);
+
+            var btnText = fileName;
+            if (levelData.IsCompleted) 
+                btnText += $" (Best Steps : {levelData.BestSteps})";
+
+            var btnColor = levelData.IsCompleted
+                ? Brush.Parse("#2e7d32")
+                : Brush.Parse("#2D2D30");
 
             var btn = new Button
             {
-                Content = fileName,
+                Content = btnText,
                 Foreground = Brushes.White,           
-                Background = Brush.Parse("#2D2D30"),  
+                Background = btnColor,  
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                Height = 40,
+                Height = 45,
                 FontSize = 18
             };
 

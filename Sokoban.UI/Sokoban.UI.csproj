@@ -13,6 +13,9 @@
     <None Remove="Assets\Player.png" />
     <None Remove="Assets\target.png" />
     <None Remove="Assets\wall.png" />
+    <None Remove="Levels\level_1.json" />
+    <None Remove="Levels\level_2.json" />
+    <None Remove="Levels\level_3.json" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\box.png" />
@@ -21,6 +24,17 @@
     <AvaloniaResource Include="Assets\player.png" />
     <AvaloniaResource Include="Assets\target.png" />
     <AvaloniaResource Include="Assets\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Levels\level_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Levels\level_2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Levels\level_3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

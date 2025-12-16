@@ -6,7 +6,7 @@
              x:Class="Sokoban.UI.LevelSelectView">
 
     <Border Background="#1E1E1E"> 
-        <Grid RowDefinitions="Auto, *, Auto" Margin="20" MaxWidth="400">
+        <Grid RowDefinitions="Auto, *, Auto" Margin="20" MaxWidth="450">
             
             <TextBlock Grid.Row="0" 
                        Text="SELECT LEVEL" 

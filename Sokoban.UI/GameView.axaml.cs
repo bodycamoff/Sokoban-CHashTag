@@ -1,3 +1,4 @@
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -88,10 +89,24 @@ public partial class GameView : UserControl
             GameGrid.Children.Add(cellContainer);
         }
 
-        if (game.IsCompleted && StatusText != null)
+        if (game.IsCompleted)
         {
-            StatusText.Text = "U WON";
-            StatusText.Foreground = Brushes.Green;
+            if (StatusText != null)
+            {
+                StatusText.Text = "U WON";
+                StatusText.Foreground = Brushes.Green;
+            }
+
+            currentLevel.IsCompleted = true;
+
+            if (currentLevel.BestSteps == 0 || game.Steps < currentLevel.BestSteps)
+                currentLevel.BestSteps = game.Steps;
+
+            string folderPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Levels");
+            string fullPath = System.IO.Path.Combine(folderPath, $"{currentLevel.Name}.json");
+
+            var service = new LevelService();
+            service.SaveLevel(currentLevel, fullPath);
         }
     }
 
